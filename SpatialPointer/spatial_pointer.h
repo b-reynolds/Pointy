@@ -28,7 +28,6 @@ private slots:
 
     void on_btn_enable_clicked();
     void on_btn_disable_clicked();
-
     void on_btn_github_clicked();
 
 private:
