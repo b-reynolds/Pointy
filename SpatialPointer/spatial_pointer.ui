@@ -118,7 +118,7 @@
      </font>
     </property>
     <property name="text">
-     <string>Deadzone:</string>
+     <string>Sensitivity:</string>
     </property>
    </widget>
    <widget class="QSlider" name="sld_deadzone">
