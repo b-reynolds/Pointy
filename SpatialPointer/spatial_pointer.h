@@ -30,6 +30,10 @@ private slots:
     void on_btn_disable_clicked();
     void on_btn_github_clicked();
 
+    void on_chk_vertical_stateChanged(int arg1);
+
+    void on_chk_horizontal_stateChanged(int arg1);
+
 private:
 
     Ui::SpatialPointer *ui;
@@ -38,15 +42,18 @@ private:
 
     PhidgetSpatial* spatial_;
 
-    const int kCheckStatusRate = 250;
-    const int kUpdateRate = 10;
+    const int kUpdateRate = 17;
 
-    const QString kStatusIdle = "Disabled";
+    const QString kStatusIdle = "Click the green arrow to begin pointing";
     const QString kStatusFail = "Please ensure your spatial sensor is attatched";
-    const QString kStatusWorking = "Enabled";
+    const QString kStatusWorking = "Active";
 
     int tolerance_;
     int speed_;
+
+    bool horizontal_;
+    bool vertical_;
+
     bool enabled_;
 
     void set_status(const QString& status);

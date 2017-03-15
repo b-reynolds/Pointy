@@ -29,6 +29,9 @@ SpatialPointer::SpatialPointer(QWidget *parent) : QWidget(parent), ui(new Ui::Sp
     speed_ = ui->sld_speed->value();
     ui->lbl_speed_value->setText(QString::number(ui->sld_speed->value()));
 
+    horizontal_ = ui->chk_horizontal->isChecked();
+    vertical_ = ui->chk_vertical->isChecked();
+
     // Set the status to idle
     enabled_ = false;
     set_status(kStatusIdle);
@@ -65,8 +68,8 @@ void SpatialPointer::slot_update()
     auto angular_rate = spatial_->angular_rate();
 
     // If the angular data on either axis exceeds the tolerence then set their respective velocitys
-    int velocity_x = (angular_rate.z > tolerance_ || angular_rate.z < -tolerance_) ? angular_rate.z * speed_ : 0;
-    int velocity_y = (angular_rate.x > tolerance_ || angular_rate.x < -tolerance_) ? angular_rate.x * speed_ : 0;
+    int velocity_x = (horizontal_ && (angular_rate.z > tolerance_ || angular_rate.z < -tolerance_)) ? angular_rate.z * speed_ : 0;
+    int velocity_y = (vertical_ & (angular_rate.x > tolerance_ || angular_rate.x < -tolerance_)) ? angular_rate.x * speed_ : 0;
 
     // Move the cursor
     move_cursor(velocity_x, velocity_y);
@@ -155,4 +158,22 @@ void SpatialPointer::on_sld_speed_valueChanged(int value)
 {
     speed_ = value;
     ui->lbl_speed_value->setText(QString::number(value));
+}
+
+/**
+ * @brief Horizontal checkbox state changed event
+ * @param arg1 new state
+ */
+void SpatialPointer::on_chk_horizontal_stateChanged(int arg1)
+{
+    horizontal_ = arg1;
+}
+
+/**
+ * @brief Vertical checkbox state changed event
+ * @param arg1 new state
+ */
+void SpatialPointer::on_chk_vertical_stateChanged(int arg1)
+{
+    vertical_ = arg1;
 }

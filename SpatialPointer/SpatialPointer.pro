@@ -40,6 +40,8 @@ FORMS    += spatial_pointer.ui
 
 RESOURCES += \
     banner.qrc \
-    icon.qrc
+    icon.qrc \
+    icon_off.qrc \
+    icon_on.qrc
 
 DISTFILES +=
