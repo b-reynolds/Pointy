@@ -34,6 +34,8 @@ private slots:
 
     void on_chk_horizontal_stateChanged(int arg1);
 
+    void on_chk_invert_toggled(bool checked);
+
 private:
 
     Ui::SpatialPointer *ui;
@@ -53,7 +55,7 @@ private:
 
     bool horizontal_;
     bool vertical_;
-
+    bool invert_;
     bool enabled_;
 
     void set_status(const QString& status);

@@ -198,7 +198,7 @@
    <widget class="QCheckBox" name="chk_horizontal">
     <property name="geometry">
      <rect>
-      <x>60</x>
+      <x>20</x>
       <y>110</y>
       <width>81</width>
       <height>17</height>
@@ -226,7 +226,7 @@
    <widget class="QCheckBox" name="chk_vertical">
     <property name="geometry">
      <rect>
-      <x>170</x>
+      <x>130</x>
       <y>110</y>
       <width>61</width>
       <height>20</height>
@@ -273,6 +273,34 @@
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="chk_invert">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>220</x>
+      <y>110</y>
+      <width>61</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <weight>50</weight>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
+    </property>
+    <property name="text">
+     <string>Invert</string>
+    </property>
+    <property name="checked">
+     <bool>false</bool>
     </property>
    </widget>
   </widget>
@@ -429,10 +457,10 @@
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>
-  <include location="banner.qrc"/>
-  <include location="icon.qrc"/>
-  <include location="icon_off.qrc"/>
   <include location="icon_on.qrc"/>
+  <include location="icon.qrc"/>
+  <include location="banner.qrc"/>
+  <include location="icon_off.qrc"/>
  </resources>
  <connections/>
 </ui>

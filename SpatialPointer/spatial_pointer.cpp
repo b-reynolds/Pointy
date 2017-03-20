@@ -31,6 +31,7 @@ SpatialPointer::SpatialPointer(QWidget *parent) : QWidget(parent), ui(new Ui::Sp
 
     horizontal_ = ui->chk_horizontal->isChecked();
     vertical_ = ui->chk_vertical->isChecked();
+    invert_ = ui->chk_invert->isChecked();
 
     // Set the status to idle
     enabled_ = false;
@@ -68,8 +69,8 @@ void SpatialPointer::slot_update()
     auto angular_rate = spatial_->angular_rate();
 
     // If the angular data on either axis exceeds the tolerence then set their respective velocitys
-    int velocity_x = (horizontal_ && (angular_rate.z > tolerance_ || angular_rate.z < -tolerance_)) ? angular_rate.z * speed_ : 0;
-    int velocity_y = (vertical_ & (angular_rate.x > tolerance_ || angular_rate.x < -tolerance_)) ? angular_rate.x * speed_ : 0;
+    int velocity_x = (horizontal_ && (angular_rate.z > tolerance_ || angular_rate.z < -tolerance_)) ? (invert_ ? -angular_rate.z : angular_rate.z) * speed_ : 0;
+    int velocity_y = (vertical_ & (angular_rate.x > tolerance_ || angular_rate.x < -tolerance_)) ? (invert_ ? -angular_rate.x : angular_rate.x) * speed_ : 0;
 
     // Move the cursor
     move_cursor(velocity_x, velocity_y);
@@ -176,4 +177,13 @@ void SpatialPointer::on_chk_horizontal_stateChanged(int arg1)
 void SpatialPointer::on_chk_vertical_stateChanged(int arg1)
 {
     vertical_ = arg1;
+}
+
+/**
+ * @brief Invert checkbox toggled event
+ * @param checked new state
+ */
+void SpatialPointer::on_chk_invert_toggled(bool checked)
+{
+    invert_ = checked;
 }
