@@ -61,14 +61,12 @@ void SpatialPointer::slot_update()
 
     // Pointer was disabled, return
     if(!enabled_)
-    {
         return;
-    }
 
     // Obtain the angular rate data from the Phidget Spatial
     auto angular_rate = spatial_->angular_rate();
 
-    // If the angular data on either axis exceeds the tolerence then set their respective velocitys
+    // If the angular data on either axis exceeds the tolerance then set the respective velocity
     int velocity_x = (horizontal_ && (angular_rate.z > tolerance_ || angular_rate.z < -tolerance_)) ? (invert_ ? -angular_rate.z : angular_rate.z) * speed_ : 0;
     int velocity_y = (vertical_ & (angular_rate.x > tolerance_ || angular_rate.x < -tolerance_)) ? (invert_ ? -angular_rate.x : angular_rate.x) * speed_ : 0;
 
