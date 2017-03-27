@@ -29,7 +29,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>Spatial Pointer v1.1</string>
+   <string>Spatial Pointer v1.2</string>
   </property>
   <property name="windowIcon">
    <iconset resource="icon.qrc">
@@ -457,9 +457,9 @@
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>
-  <include location="icon_on.qrc"/>
   <include location="icon.qrc"/>
   <include location="banner.qrc"/>
+  <include location="icon_on.qrc"/>
   <include location="icon_off.qrc"/>
  </resources>
  <connections/>
