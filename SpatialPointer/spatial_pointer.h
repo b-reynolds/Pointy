@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <phidget21.h>
+#include "overlay.h"
 
 namespace Ui {
     class SpatialPointer;
@@ -22,6 +23,7 @@ public:
 private slots:
 
     void slot_update();
+    void slot_activate_click();
 
     void on_sld_deadzone_valueChanged(int value);
     void on_sld_speed_valueChanged(int value);
@@ -38,13 +40,21 @@ private slots:
 
 private:
 
+
+
     Ui::SpatialPointer *ui;
 
     QTimer* tmr_update;
+    QTimer* tmr_activate_click;
 
     PhidgetSpatial* spatial_;
 
-    const int kUpdateRate = 17;
+    Overlay* overlay_;
+
+    const int kUpdateRate = 10;
+
+    const int kStartClickRadius = 100;
+    const float kActivateClickTime = 1000.0f;
 
     const QString kStatusIdle = "Click the green arrow to begin pointing";
     const QString kStatusFail = "Please ensure your spatial sensor is attatched";
@@ -62,6 +72,8 @@ private:
     void set_enabled(const bool& state);
 
     void move_cursor(const int& x, const int& y);
+
+    QPoint old_mouse_position;
 
 };
 

@@ -25,7 +25,7 @@ private slots:
 private:
 
     const float kOneSecond = 1000.0f;
-    const int kCountdownTime = 5;
+    const int kCountdownTime = 3;
 
     Ui::Overlay *ui;
 

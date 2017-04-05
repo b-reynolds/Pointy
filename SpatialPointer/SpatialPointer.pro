@@ -29,19 +29,23 @@ LIBS += -L"$$_PRO_FILE_PWD_/Phidgets/lib" -lphidget21
 
 SOURCES += main.cpp\
         spatial_pointer.cpp \
-    phidget_spatial.cpp
+    phidget_spatial.cpp \
+    overlay.cpp
 
 HEADERS  += \
     spatial_pointer.h \
     vector3.h \
-    phidget_spatial.h
+    phidget_spatial.h \
+    overlay.h
 
-FORMS    += spatial_pointer.ui
+FORMS    += spatial_pointer.ui \
+    overlay.ui
 
 RESOURCES += \
     banner.qrc \
     icon.qrc \
     icon_off.qrc \
-    icon_on.qrc
+    icon_on.qrc \
+    circle.qrc
 
 DISTFILES +=

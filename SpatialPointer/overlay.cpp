@@ -14,7 +14,7 @@ Overlay::Overlay(QWidget *parent) : QWidget(parent), ui(new Ui::Overlay)
     connect(tmr_update, SIGNAL(timeout()), this, SLOT(slot_update()));
 
 
-    countdown_ = 5;
+    set_countdown(kCountdownTime);
 }
 
 Overlay::~Overlay()
@@ -42,7 +42,9 @@ void Overlay::slot_update()
     if(countdown_ > 0)
         set_countdown(countdown_ - 1);
     else
-        countdown_ = 5;
+    {
+        set_enabled(false);
+    }
 }
 
 void Overlay::set_countdown(const int& value)

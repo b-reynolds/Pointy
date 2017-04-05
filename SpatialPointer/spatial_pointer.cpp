@@ -21,6 +21,10 @@ SpatialPointer::SpatialPointer(QWidget *parent) : QWidget(parent), ui(new Ui::Sp
     tmr_update = new QTimer(this);
     connect(tmr_update, SIGNAL(timeout()), this, SLOT(slot_update()));
 
+    // Initialize and connect the update timer to the update function
+    tmr_activate_click = new QTimer(this);
+    connect(tmr_activate_click, SIGNAL(timeout()), this, SLOT(slot_activate_click()));
+
     // Initialize the tolerance value and respective controls to their default values
     tolerance_ = ui->sld_deadzone->value();
     ui->lbl_deadzone_value->setText(QString::number(ui->sld_deadzone->value()));
@@ -36,6 +40,11 @@ SpatialPointer::SpatialPointer(QWidget *parent) : QWidget(parent), ui(new Ui::Sp
     // Set the status to idle
     enabled_ = false;
     set_status(kStatusIdle);
+
+    overlay_ = new Overlay();
+    overlay_->hide();
+
+    old_mouse_position = QCursor::pos();
 }
 
 /**
@@ -63,6 +72,9 @@ void SpatialPointer::slot_update()
     if(!enabled_)
         return;
 
+    QPoint cursor_position = QCursor::pos();
+    overlay_->move(cursor_position);
+
     // Obtain the angular rate data from the Phidget Spatial
     auto angular_rate = spatial_->angular_rate();
 
@@ -72,6 +84,32 @@ void SpatialPointer::slot_update()
 
     // Move the cursor
     move_cursor(velocity_x, velocity_y);
+
+    QPoint mouse_position = QCursor::pos();
+
+    if(abs(old_mouse_position.x() - mouse_position.x()) < kStartClickRadius && abs(old_mouse_position.y() - mouse_position.y()) < kStartClickRadius)
+    {
+        if(overlay_->isHidden() && !tmr_activate_click->isActive())
+        {
+            qDebug("Yep");
+            tmr_activate_click->start(kActivateClickTime);
+        }
+    }
+    else
+    {
+        qDebug("Nope");
+
+        old_mouse_position = mouse_position;
+        tmr_activate_click->stop();
+    }
+
+
+}
+
+void SpatialPointer::slot_activate_click()
+{
+    overlay_->set_enabled(true);
+    tmr_activate_click->stop();
 }
 
 /**
@@ -91,6 +129,8 @@ void SpatialPointer::set_enabled(const bool &state)
 {
     enabled_ = state;
     enabled_ ? tmr_update->start(kUpdateRate) : tmr_update->stop();
+    if(!enabled_)
+        tmr_activate_click->stop();
 
     ui->btn_enable->setEnabled(state == false);
     ui->btn_disable->setEnabled(state == true);
