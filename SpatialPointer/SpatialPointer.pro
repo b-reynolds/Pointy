@@ -42,10 +42,10 @@ FORMS    += spatial_pointer.ui \
     overlay.ui
 
 RESOURCES += \
-    banner.qrc \
     icon.qrc \
     icon_off.qrc \
     icon_on.qrc \
-    circle.qrc
+    circle.qrc \
+    banner.qrc
 
 DISTFILES +=
