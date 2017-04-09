@@ -37,6 +37,7 @@ SpatialPointer::SpatialPointer(QWidget *parent) : QWidget(parent), ui(new Ui::Sp
     // Initialize the radius value and respective controls to their default values
     radius_ = ui->sld_trigger_radius->value();
     ui->lbl_trigger_radius_value->setText(QString::number(ui->sld_trigger_radius->value()) + "px");
+    ui->sld_trigger_radius->setMaximum(QApplication::desktop()->screenGeometry().width() / 2);
 
     // Initialize the radius value and respective controls to their default values
     trigger_time_ = ui->sld_trigger_time->value();
@@ -105,30 +106,16 @@ void SpatialPointer::slot_update()
         return;
 
     QPoint mouse_position = QCursor::pos();
-
-    QSize overlay_size = overlay_->size();
     QRect resolution = QApplication::desktop()->screenGeometry();
 
-    QPoint overlay_position = QPoint(0, 0);
+    QPoint overlay_position = mouse_position;
+    QSize overlay_size = overlay_->size();
 
+    // If the mouse is in such a position that the overlay would not be visible, adjust the overlay position.
     if(mouse_position.x() > resolution.width() - overlay_size.width())
-    {
-        overlay_position.setX(mouse_position.x() - overlay_size.width());
-    }
-    else
-    {
-        overlay_position.setX(mouse_position.x());
-    }
-
+        overlay_position.setX(overlay_position.x() - overlay_size.width());
     if(mouse_position.y() > resolution.height() - overlay_size.height())
-    {
-        overlay_position.setY(mouse_position.y() - overlay_size.height());
-    }
-    else
-    {
-        overlay_position.setY(mouse_position.y());
-    }
-
+        overlay_position.setY(overlay_position.y() - overlay_size.height());
 
     overlay_->move(overlay_position);
 
@@ -202,13 +189,6 @@ void SpatialPointer::on_btn_disable_clicked()
     set_enabled(false);
 }
 
-/**
- * @brief Github button click event
- */
-void SpatialPointer::on_btn_github_clicked()
-{
-    QDesktopServices::openUrl(QUrl(ui->btn_github->text()));
-}
 
 /**
  * @brief Deadzone slider value changed event

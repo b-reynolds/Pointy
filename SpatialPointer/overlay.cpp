@@ -1,6 +1,8 @@
 #include "overlay.h"
 #include "ui_overlay.h"
 #include <QTimer>
+#include <Windows.h>
+#pragma comment (lib,"User32.lib")
 
 Overlay::Overlay(QWidget *parent) : QWidget(parent), ui(new Ui::Overlay)
 {
@@ -11,6 +13,8 @@ Overlay::Overlay(QWidget *parent) : QWidget(parent), ui(new Ui::Overlay)
     setAttribute(Qt::WA_NoSystemBackground, true);
     setAttribute(Qt::WA_TranslucentBackground, true);
     setAttribute(Qt::WA_PaintOnScreen); // not needed in Qt 5.2 and up
+
+    setWindowFlags(windowFlags() | Qt::X11BypassWindowManagerHint | Qt::WindowStaysOnTopHint | Qt::SubWindow);
 
     // Initialize and connect the update timer to the update function
     tmr_update = new QTimer(this);
@@ -47,6 +51,8 @@ void Overlay::slot_update()
     else
     {
         set_enabled(false, countdown_);
+        mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, NULL, NULL, NULL, NULL);
+
     }
 }
 

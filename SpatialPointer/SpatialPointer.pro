@@ -46,6 +46,7 @@ RESOURCES += \
     icon_off.qrc \
     icon_on.qrc \
     circle.qrc \
-    banner.qrc
+    banner.qrc \
+    big_icon.qrc
 
 DISTFILES +=

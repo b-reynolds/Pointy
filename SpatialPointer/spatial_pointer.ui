@@ -115,7 +115,7 @@
         <number>100</number>
        </property>
        <property name="pageStep">
-        <number>10</number>
+        <number>1</number>
        </property>
        <property name="value">
         <number>5</number>
@@ -360,7 +360,7 @@
         <number>25</number>
        </property>
        <property name="pageStep">
-        <number>100</number>
+        <number>1</number>
        </property>
        <property name="value">
         <number>250</number>
@@ -487,10 +487,13 @@
         <number>250</number>
        </property>
        <property name="pageStep">
-        <number>1000</number>
+        <number>1</number>
        </property>
        <property name="value">
-        <number>3000</number>
+        <number>1000</number>
+       </property>
+       <property name="tracking">
+        <bool>true</bool>
        </property>
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
@@ -566,7 +569,7 @@
          </font>
         </property>
         <property name="text">
-         <string>3000ms</string>
+         <string>1000ms</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
@@ -648,7 +651,7 @@
         <number>1</number>
        </property>
        <property name="value">
-        <number>3</number>
+        <number>2</number>
        </property>
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
@@ -684,7 +687,7 @@
          </font>
         </property>
         <property name="text">
-         <string>3s</string>
+         <string>2s</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
@@ -880,32 +883,199 @@
     <attribute name="title">
      <string>About</string>
     </attribute>
-    <widget class="QPushButton" name="btn_github">
+    <widget class="QGroupBox" name="groupBox_13">
      <property name="geometry">
       <rect>
-       <x>20</x>
-       <y>170</y>
-       <width>311</width>
-       <height>31</height>
+       <x>10</x>
+       <y>50</y>
+       <width>591</width>
+       <height>61</height>
       </rect>
      </property>
      <property name="font">
       <font>
        <family>Tahoma</family>
        <pointsize>10</pointsize>
-       <underline>true</underline>
+       <weight>75</weight>
+       <bold>true</bold>
       </font>
      </property>
-     <property name="cursor">
-      <cursorShape>PointingHandCursor</cursorShape>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">color: rgb(0, 0, 255);</string>
-     </property>
-     <property name="text">
-      <string>https://github.com/b-reynolds</string>
+     <property name="title">
+      <string>Description</string>
      </property>
      <property name="flat">
+      <bool>true</bool>
+     </property>
+     <property name="checkable">
+      <bool>false</bool>
+     </property>
+     <widget class="QLabel" name="lbl_description">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>20</y>
+        <width>571</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Tahoma</family>
+        <pointsize>10</pointsize>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="toolTip">
+       <string/>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Pointy is an application that allows users to control their mouse cursor using a Phidget Spatial sensor. It was developed for an Emerging Technologies module at the &lt;a href=&quot;https://www.uos.ac.uk/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;University of Suffolk&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+      <property name="textFormat">
+       <enum>Qt::AutoText</enum>
+      </property>
+      <property name="scaledContents">
+       <bool>false</bool>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+      </property>
+      <property name="wordWrap">
+       <bool>true</bool>
+      </property>
+      <property name="openExternalLinks">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QLabel" name="label">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>91</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Tahoma</family>
+       <pointsize>12</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Pointy v1.3</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_2">
+     <property name="geometry">
+      <rect>
+       <x>110</x>
+       <y>10</y>
+       <width>491</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Tahoma</family>
+       <pointsize>9</pointsize>
+       <weight>50</weight>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>9th April 2017</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QGroupBox" name="groupBox_14">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>120</y>
+       <width>591</width>
+       <height>71</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Tahoma</family>
+       <pointsize>10</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="title">
+      <string>Author</string>
+     </property>
+     <property name="flat">
+      <bool>true</bool>
+     </property>
+     <property name="checkable">
+      <bool>false</bool>
+     </property>
+     <widget class="QLabel" name="lbl_description_2">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>20</y>
+        <width>571</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Tahoma</family>
+        <pointsize>10</pointsize>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="toolTip">
+       <string/>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Name: Ben Reynolds&lt;br/&gt;Email: &lt;a href=&quot;mailto:breynolds1994@outlook.com&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;breynolds1994@outlook.com&lt;/span&gt;&lt;/a&gt;&lt;br/&gt;GitHub: &lt;a href=&quot;https://github.com/b-reynolds&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;https://github.com/b-reynolds&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+      <property name="textFormat">
+       <enum>Qt::AutoText</enum>
+      </property>
+      <property name="scaledContents">
+       <bool>false</bool>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+      </property>
+      <property name="wordWrap">
+       <bool>true</bool>
+      </property>
+      <property name="openExternalLinks">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QLabel" name="label_3">
+     <property name="geometry">
+      <rect>
+       <x>540</x>
+       <y>150</y>
+       <width>64</width>
+       <height>64</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="pixmap">
+      <pixmap resource="big_icon.qrc">:/icon.png</pixmap>
+     </property>
+     <property name="scaledContents">
       <bool>true</bool>
      </property>
     </widget>
@@ -1034,6 +1204,7 @@
   <include location="icon_off.qrc"/>
   <include location="icon.qrc"/>
   <include location="icon_on.qrc"/>
+  <include location="big_icon.qrc"/>
  </resources>
  <connections/>
  <designerdata>
