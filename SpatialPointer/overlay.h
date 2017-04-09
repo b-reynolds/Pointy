@@ -16,7 +16,7 @@ public:
     explicit Overlay(QWidget *parent = 0);
     ~Overlay();
 
-    void set_enabled(const bool& state);
+    void set_enabled(const bool& state, const int& countdown);
 
 private slots:
 

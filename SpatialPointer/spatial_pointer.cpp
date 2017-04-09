@@ -4,6 +4,7 @@
 #include <QTimer>
 #include <QCursor>
 #include <QDesktopServices>
+#include <QDesktopWidget>
 #include <Qurl>
 
 /**
@@ -35,19 +36,24 @@ SpatialPointer::SpatialPointer(QWidget *parent) : QWidget(parent), ui(new Ui::Sp
 
     // Initialize the radius value and respective controls to their default values
     radius_ = ui->sld_trigger_radius->value();
-    ui->lbl_trigger_radius_value->setText(QString::number(ui->sld_trigger_radius->value()));
+    ui->lbl_trigger_radius_value->setText(QString::number(ui->sld_trigger_radius->value()) + "px");
 
     // Initialize the radius value and respective controls to their default values
     trigger_time_ = ui->sld_trigger_time->value();
-    ui->lbl_trigger_time_value->setText(QString::number(ui->sld_trigger_time->value()));
+    ui->lbl_trigger_time_value->setText(QString::number(ui->sld_trigger_time->value()) + "ms");
+
+    // Initialize the click time value and respective controls to their default values
+    click_time_ = ui->sld_click_time->value();
+    ui->lbl_click_time_value->setText(QString::number(ui->sld_click_time->value()) + "s");
 
     horizontal_ = ui->chk_horizontal->isChecked();
     vertical_ = ui->chk_vertical->isChecked();
     invert_ = ui->chk_invert->isChecked();
+    clicking_enabled_ = ui->chk_clicking_enabled->isChecked();
 
     // Set the status to idle
     enabled_ = false;
-    set_status(kStatusIdle);
+    //set_status(kStatusIdle);
 
     overlay_ = new Overlay();
     overlay_->hide();
@@ -72,16 +78,18 @@ void SpatialPointer::slot_update()
     // Phidget Spatial was detatched, disable and set the status message to failure
     if(!spatial_->attatched())
     {
+        QMessageBox message_box;
+        message_box.setText("Error: Spatial Phidget was detached");
+        message_box.setIcon(QMessageBox::Critical);
+        message_box.exec();
+
         set_enabled(false);
-        set_status(kStatusFail);
+        //set_status(kStatusFail);
     }
 
     // Pointer was disabled, return
     if(!enabled_)
         return;
-
-    QPoint cursor_position = QCursor::pos();
-    overlay_->move(cursor_position);
 
     // Obtain the angular rate data from the Phidget Spatial
     auto angular_rate = spatial_->angular_rate();
@@ -93,40 +101,55 @@ void SpatialPointer::slot_update()
     // Move the cursor
     move_cursor(velocity_x, velocity_y);
 
+    if(!clicking_enabled_)
+        return;
+
     QPoint mouse_position = QCursor::pos();
 
-    if(abs(old_mouse_position.x() - mouse_position.x()) < kStartClickRadius && abs(old_mouse_position.y() - mouse_position.y()) < kStartClickRadius)
+    QSize overlay_size = overlay_->size();
+    QRect resolution = QApplication::desktop()->screenGeometry();
+
+    QPoint overlay_position = QPoint(0, 0);
+
+    if(mouse_position.x() > resolution.width() - overlay_size.width())
     {
-        if(overlay_->isHidden() && !tmr_activate_click->isActive())
-        {
-            qDebug("Yep");
-            tmr_activate_click->start(kActivateClickTime);
-        }
+        overlay_position.setX(mouse_position.x() - overlay_size.width());
     }
     else
     {
-        qDebug("Nope");
-
-        old_mouse_position = mouse_position;
-        tmr_activate_click->stop();
+        overlay_position.setX(mouse_position.x());
     }
 
+    if(mouse_position.y() > resolution.height() - overlay_size.height())
+    {
+        overlay_position.setY(mouse_position.y() - overlay_size.height());
+    }
+    else
+    {
+        overlay_position.setY(mouse_position.y());
+    }
+
+
+    overlay_->move(overlay_position);
+
+    if(abs_difference(old_mouse_position.x(), mouse_position.x()) < radius_ && abs_difference(old_mouse_position.y(), mouse_position.y() < radius_))
+    {
+        if(!tmr_activate_click->isActive() && overlay_->isHidden())
+            tmr_activate_click->start(trigger_time_);
+    }
+    else
+    {
+        old_mouse_position = mouse_position;
+        overlay_->set_enabled(false, click_time_);
+        tmr_activate_click->stop();
+    }
 
 }
 
 void SpatialPointer::slot_activate_click()
 {
-    overlay_->set_enabled(true);
+    overlay_->set_enabled(true, click_time_);
     tmr_activate_click->stop();
-}
-
-/**
- * @brief Set the status bar text
- * @param status new status
- */
-void SpatialPointer::set_status(const QString &status)
-{
-    ui->lbl_state->setText(status);
 }
 
 /**
@@ -143,7 +166,7 @@ void SpatialPointer::set_enabled(const bool &state)
     ui->btn_enable->setEnabled(state == false);
     ui->btn_disable->setEnabled(state == true);
 
-    set_status(state ? kStatusWorking : kStatusIdle);
+    //set_status(state ? kStatusWorking : kStatusIdle);
 }
 
 /**
@@ -164,7 +187,7 @@ void SpatialPointer::on_btn_enable_clicked()
 {
     if(!spatial_->attatched() && !spatial_->initialize(8, 1))
     {
-        set_status(kStatusFail);
+        show_message_box("Spatial Phidget undetected.", "Error", QMessageBox::Critical);
         return;
     }
 
@@ -241,7 +264,7 @@ void SpatialPointer::on_chk_invert_toggled(bool checked)
 void SpatialPointer::on_sld_trigger_radius_valueChanged(int value)
 {
     radius_ = value;
-    ui->lbl_trigger_radius_value->setText(QString::number(radius_));
+    ui->lbl_trigger_radius_value->setText(QString::number(radius_) + "px");
 }
 
 /**
@@ -251,7 +274,7 @@ void SpatialPointer::on_sld_trigger_radius_valueChanged(int value)
 void SpatialPointer::on_sld_trigger_time_valueChanged(int value)
 {
     trigger_time_ = value;
-    ui->lbl_trigger_time_value->setText(QString::number(trigger_time_));
+    ui->lbl_trigger_time_value->setText(QString::number(trigger_time_) + "ms");
 }
 
 /**
@@ -261,5 +284,24 @@ void SpatialPointer::on_sld_trigger_time_valueChanged(int value)
 void SpatialPointer::on_sld_click_time_valueChanged(int value)
 {
     click_time_ = value;
-    ui->lbl_click_time_value->setText(QString::number(click_time_));
+    ui->lbl_click_time_value->setText(QString::number(click_time_) + "s");
+}
+
+int SpatialPointer::abs_difference(const int &x, const int &y)
+{
+    return static_cast<int>(abs(x - y));
+}
+
+void SpatialPointer::on_chk_clicking_enabled_toggled(bool checked)
+{
+    clicking_enabled_ = checked;
+}
+
+void SpatialPointer::show_message_box(const QString &message, const QString &caption, const QMessageBox::Icon &icon)
+{
+    QMessageBox message_box;
+    message_box.setText(message);
+    message_box.setWindowTitle(caption);
+    message_box.setIcon(icon);
+    message_box.exec();
 }

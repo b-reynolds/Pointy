@@ -35,7 +35,13 @@
    <double>1.000000000000000</double>
   </property>
   <property name="styleSheet">
-   <string notr="true">Overlay { background-color: none; }</string>
+   <string notr="true">QWidget {
+	background-color: rgba(0,0,0,0);
+}
+
+QLabel {
+	color: white;
+}</string>
   </property>
   <widget class="QLabel" name="img_background">
    <property name="geometry">

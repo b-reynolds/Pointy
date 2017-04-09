@@ -6,8 +6,11 @@ Overlay::Overlay(QWidget *parent) : QWidget(parent), ui(new Ui::Overlay)
 {
     ui->setupUi(this);
 
-    QWidget::setWindowFlags(Qt::CustomizeWindowHint | Qt::WindowStaysOnTopHint);
-    //QWidget::setAttribute(Qt::WA_PaintOnScreen);
+    setWindowFlags(Qt::Widget | Qt::FramelessWindowHint);
+    setParent(0); // Create TopLevel-Widget
+    setAttribute(Qt::WA_NoSystemBackground, true);
+    setAttribute(Qt::WA_TranslucentBackground, true);
+    setAttribute(Qt::WA_PaintOnScreen); // not needed in Qt 5.2 and up
 
     // Initialize and connect the update timer to the update function
     tmr_update = new QTimer(this);
@@ -22,28 +25,28 @@ Overlay::~Overlay()
     delete ui;
 }
 
-void Overlay::set_enabled(const bool& state)
+void Overlay::set_enabled(const bool& state, const int& countdown)
 {
+    set_countdown(countdown);
+
     if(state)
     {
         tmr_update->start(1000);
         show();
-
         return;
     }
 
     tmr_update->stop();
-    set_countdown(kCountdownTime);
     hide();
 }
 
 void Overlay::slot_update()
 {
-    if(countdown_ > 0)
+    if(countdown_ > 1)
         set_countdown(countdown_ - 1);
     else
     {
-        set_enabled(false);
+        set_enabled(false, countdown_);
     }
 }
 

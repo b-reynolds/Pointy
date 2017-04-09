@@ -2,6 +2,7 @@
 #define SPATIA_LPOINTER_H
 
 #include <QWidget>
+#include <QMessageBox>
 #include <phidget21.h>
 #include "overlay.h"
 
@@ -44,6 +45,8 @@ private slots:
 
     void on_sld_click_time_valueChanged(int value);
 
+    void on_chk_clicking_enabled_toggled(bool checked);
+
 private:
 
 
@@ -76,11 +79,15 @@ private:
     bool vertical_;
     bool invert_;
     bool enabled_;
+    bool clicking_enabled_;
 
-    void set_status(const QString& status);
     void set_enabled(const bool& state);
 
     void move_cursor(const int& x, const int& y);
+
+    int abs_difference(const int& x, const int& y);
+
+    void show_message_box(const QString& message, const QString& caption, const QMessageBox::Icon& icon);
 
     QPoint old_mouse_position;
 
