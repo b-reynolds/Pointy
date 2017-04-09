@@ -79,13 +79,8 @@ void SpatialPointer::slot_update()
     // Phidget Spatial was detatched, disable and set the status message to failure
     if(!spatial_->attatched())
     {
-        QMessageBox message_box;
-        message_box.setText("Error: Spatial Phidget was detached");
-        message_box.setIcon(QMessageBox::Critical);
-        message_box.exec();
-
         set_enabled(false);
-        //set_status(kStatusFail);
+            show_message_box("The Phidget Spatial 3/3/3 sensor was disconnected and Pointy has been disabled.", QWidget::windowTitle(), QMessageBox::Warning);
     }
 
     // Pointer was disabled, return
@@ -148,12 +143,13 @@ void SpatialPointer::set_enabled(const bool &state)
     enabled_ = state;
     enabled_ ? tmr_update->start(kUpdateRate) : tmr_update->stop();
     if(!enabled_)
+    {
         tmr_activate_click->stop();
+        overlay_->set_enabled(false, click_time_);
+    }
 
     ui->btn_enable->setEnabled(state == false);
     ui->btn_disable->setEnabled(state == true);
-
-    //set_status(state ? kStatusWorking : kStatusIdle);
 }
 
 /**
@@ -174,7 +170,7 @@ void SpatialPointer::on_btn_enable_clicked()
 {
     if(!spatial_->attatched() && !spatial_->initialize(8, 1))
     {
-        show_message_box("Spatial Phidget undetected.", "Error", QMessageBox::Critical);
+        show_message_box("Please ensure that your Phidget Spatial 3/3/3 sensor is connected to the computer.", QWidget::windowTitle(), QMessageBox::Information);
         return;
     }
 

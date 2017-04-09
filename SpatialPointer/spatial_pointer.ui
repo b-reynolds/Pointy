@@ -45,7 +45,7 @@
    <bool>false</bool>
   </property>
   <property name="styleSheet">
-   <string notr="true">QSlider::handle:horizontal {background-color:#78AB91;}</string>
+   <string notr="true">QSlider::handle:horizontal {background-color:#7FBCEC;}</string>
   </property>
   <widget class="QTabWidget" name="tab_main">
    <property name="geometry">
@@ -233,7 +233,7 @@
         <number>1</number>
        </property>
        <property name="maximum">
-        <number>25</number>
+        <number>10</number>
        </property>
        <property name="pageStep">
         <number>1</number>
@@ -351,10 +351,10 @@
         </rect>
        </property>
        <property name="minimum">
-        <number>25</number>
+        <number>1</number>
        </property>
        <property name="maximum">
-        <number>1000</number>
+        <number>960</number>
        </property>
        <property name="singleStep">
         <number>25</number>
@@ -889,7 +889,7 @@
        <x>10</x>
        <y>50</y>
        <width>591</width>
-       <height>61</height>
+       <height>81</height>
       </rect>
      </property>
      <property name="font">
@@ -930,7 +930,7 @@
        <string/>
       </property>
       <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Pointy is an application that allows users to control their mouse cursor using a Phidget Spatial sensor. It was developed for an Emerging Technologies module at the &lt;a href=&quot;https://www.uos.ac.uk/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;University of Suffolk&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Pointy is an application that allows users to control their mouse cursor using a Phidget Spatial sensor. It was developed for the Emerging Technologies module at the &lt;a href=&quot;https://www.uos.ac.uk/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;University of Suffolk&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
       <property name="textFormat">
        <enum>Qt::AutoText</enum>
@@ -998,9 +998,9 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>120</y>
+       <y>130</y>
        <width>591</width>
-       <height>71</height>
+       <height>91</height>
       </rect>
      </property>
      <property name="font">
@@ -1041,7 +1041,7 @@
        <string/>
       </property>
       <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Name: Ben Reynolds&lt;br/&gt;Email: &lt;a href=&quot;mailto:breynolds1994@outlook.com&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;breynolds1994@outlook.com&lt;/span&gt;&lt;/a&gt;&lt;br/&gt;GitHub: &lt;a href=&quot;https://github.com/b-reynolds&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;https://github.com/b-reynolds&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Name: Ben Reynolds&lt;br/&gt;Email: &lt;a href=&quot;mailto:breynolds1994@outlook.com&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;breynolds1994@outlook.com&lt;/span&gt;&lt;/a&gt;&lt;br/&gt;GitHub: &lt;a href=&quot;http://github.com/b-reynolds/Pointy&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;http://github.com/b-reynolds/Pointy&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
       <property name="textFormat">
        <enum>Qt::AutoText</enum>

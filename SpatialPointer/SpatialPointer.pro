@@ -8,7 +8,13 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = SpatialPointer
+TARGET = Pointy
+
+VERSION = 1.3
+QMAKE_TARGET_COMPANY = Ben Reynolds
+QMAKE_TARGET_PRODUCT = Pointy
+QMAKE_TARGET_DESCRIPTION = Control your mouse cursor with a Phidget Spatial
+
 TEMPLATE = app
 
 # The following define makes your compiler emit warnings if you use
