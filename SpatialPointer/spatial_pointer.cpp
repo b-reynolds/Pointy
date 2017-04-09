@@ -33,6 +33,14 @@ SpatialPointer::SpatialPointer(QWidget *parent) : QWidget(parent), ui(new Ui::Sp
     speed_ = ui->sld_speed->value();
     ui->lbl_speed_value->setText(QString::number(ui->sld_speed->value()));
 
+    // Initialize the radius value and respective controls to their default values
+    radius_ = ui->sld_trigger_radius->value();
+    ui->lbl_trigger_radius_value->setText(QString::number(ui->sld_trigger_radius->value()));
+
+    // Initialize the radius value and respective controls to their default values
+    trigger_time_ = ui->sld_trigger_time->value();
+    ui->lbl_trigger_time_value->setText(QString::number(ui->sld_trigger_time->value()));
+
     horizontal_ = ui->chk_horizontal->isChecked();
     vertical_ = ui->chk_vertical->isChecked();
     invert_ = ui->chk_invert->isChecked();
@@ -224,4 +232,34 @@ void SpatialPointer::on_chk_vertical_stateChanged(int arg1)
 void SpatialPointer::on_chk_invert_toggled(bool checked)
 {
     invert_ = checked;
+}
+
+/**
+ * @brief Trigger radius slider value changed event
+ * @param value new value
+ */
+void SpatialPointer::on_sld_trigger_radius_valueChanged(int value)
+{
+    radius_ = value;
+    ui->lbl_trigger_radius_value->setText(QString::number(radius_));
+}
+
+/**
+ * @brief Trigger time slider value changed event
+ * @param value new value
+ */
+void SpatialPointer::on_sld_trigger_time_valueChanged(int value)
+{
+    trigger_time_ = value;
+    ui->lbl_trigger_time_value->setText(QString::number(trigger_time_));
+}
+
+/**
+ * @brief Click time slider value changed event
+ * @param value new value
+ */
+void SpatialPointer::on_sld_click_time_valueChanged(int value)
+{
+    click_time_ = value;
+    ui->lbl_click_time_value->setText(QString::number(click_time_));
 }

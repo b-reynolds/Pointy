@@ -38,6 +38,12 @@ private slots:
 
     void on_chk_invert_toggled(bool checked);
 
+    void on_sld_trigger_radius_valueChanged(int value);
+
+    void on_sld_trigger_time_valueChanged(int value);
+
+    void on_sld_click_time_valueChanged(int value);
+
 private:
 
 
@@ -62,6 +68,9 @@ private:
 
     int tolerance_;
     int speed_;
+    int radius_;
+    int trigger_time_;
+    int click_time_;
 
     bool horizontal_;
     bool vertical_;
