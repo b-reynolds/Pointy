@@ -45,7 +45,7 @@
    <bool>false</bool>
   </property>
   <property name="styleSheet">
-   <string notr="true">QSlider::handle:horizontal {background-color:#7FBCEC;}</string>
+   <string notr="true">QSlider::handle:horizontal {background-color:#003366;}</string>
   </property>
   <widget class="QTabWidget" name="tab_main">
    <property name="geometry">
@@ -1201,10 +1201,10 @@
  <layoutdefault spacing="6" margin="11"/>
  <resources>
   <include location="banner.qrc"/>
-  <include location="icon_off.qrc"/>
-  <include location="icon.qrc"/>
-  <include location="icon_on.qrc"/>
   <include location="big_icon.qrc"/>
+  <include location="icon.qrc"/>
+  <include location="icon_off.qrc"/>
+  <include location="icon_on.qrc"/>
  </resources>
  <connections/>
  <designerdata>
