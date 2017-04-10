@@ -8,7 +8,13 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = SpatialPointer
+TARGET = Pointy
+
+VERSION = 1.3
+QMAKE_TARGET_COMPANY = Ben Reynolds
+QMAKE_TARGET_PRODUCT = Pointy
+QMAKE_TARGET_DESCRIPTION = Control your mouse cursor with a Phidget Spatial
+
 TEMPLATE = app
 
 # The following define makes your compiler emit warnings if you use
@@ -29,19 +35,24 @@ LIBS += -L"$$_PRO_FILE_PWD_/Phidgets/lib" -lphidget21
 
 SOURCES += main.cpp\
         spatial_pointer.cpp \
-    phidget_spatial.cpp
+    phidget_spatial.cpp \
+    overlay.cpp
 
 HEADERS  += \
     spatial_pointer.h \
     vector3.h \
-    phidget_spatial.h
+    phidget_spatial.h \
+    overlay.h
 
-FORMS    += spatial_pointer.ui
+FORMS    += spatial_pointer.ui \
+    overlay.ui
 
 RESOURCES += \
-    banner.qrc \
     icon.qrc \
     icon_off.qrc \
-    icon_on.qrc
+    icon_on.qrc \
+    circle.qrc \
+    banner.qrc \
+    big_icon.qrc
 
 DISTFILES +=
